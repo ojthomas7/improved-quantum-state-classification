@@ -4,6 +4,7 @@ In a previous project (see ojthomas7/electron-orbital-classification), I:
 
 - Modelled the wavefunctions and electron orbitals of the hydrogen atom
 - Built, trained and tested a ML model for electron orbital classification
+Although the model I created was inaccurate, it was not entirely unsuccessful as I learnt alot about the process of creating ML models for classification. After taking a break and furthering my machine learning knowledge I felt I had to come back and complete my original objective: to create a CNN that will accurately classify the prinicple quantum number.
 
 Here, I took the model, which did not work and was inaccurate at classifying orbitals included in the training data, and built on it in order to create an accurate classification model.
 
