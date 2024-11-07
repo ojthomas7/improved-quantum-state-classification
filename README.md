@@ -1,52 +1,47 @@
-# Machine Learning: Electron Orbital Classification using TensorFlow
-Here I explore how machine learning can be used to classify quantum states/ electron orbitals about the hydrogen atom, based on the principle quantum number n.
+# Machine Learning: Improved Electron Orbital Classification using TensorFlow
+
+In a previous project (see ojthomas7/electron-orbital-classification), I:
+
+- Modelled the wavefunctions and electron orbitals of the hydrogen atom
+- Built, trained and tested a ML model for electron orbital classification
+
+Here, I took the model, which did not work and was inaccurate at classifying orbitals included in the training data, and built on it in order to create an accurate classification model.
 
 ## Project Evolution
-After my previous attempt at building a model wasn't very successful, I decided to make some key changes to improve its accuracy:
+I decided to make the following changes to improve its accuracy:
 
 ### What Changed?
-1. **Simplified the Problem**
-   - Instead of trying to classify n, l, and m quantum numbers all at once, I focused just on n
-   - This helped the model learn the most fundamental quantum property first
-   - Turns out simpler is sometimes better!
+1. **Cleaned Up the Model**
 
-2. **Cleaned Up the Model**
-   - Built a more straightforward CNN with:
+The original project used a far more complicated CNN architecture than was necessary. The new architecture took the form:
      ```python
-     model = models.Sequential([
-         layers.Conv2D(32, (3, 3), activation='relu'),
-         layers.MaxPooling2D((2, 2)),
-         layers.Conv2D(64, (3, 3), activation='relu'),
-         layers.MaxPooling2D((2, 2)),
-         layers.Conv2D(64, (3, 3), activation='relu'),
-         layers.MaxPooling2D((2, 2)),
-         layers.Flatten(),
-         layers.Dense(64, activation='relu'),
-         layers.Dropout(0.5),
-         layers.Dense(num_classes, activation='softmax')
-     ])
-     ```
-   - Added dropout to prevent overfitting
-   - Kept the architecture neat and focused
+   model = models.Sequential([
+        # First Convolutional Block
+        layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
+        layers.MaxPooling2D((2, 2)),
+        
+        # Second Convolutional Block
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.MaxPooling2D((2, 2)),
+        
+        # Third Convolutional Block
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.MaxPooling2D((2, 2)),
+        
+        # Flatten and Dense Layers
+        layers.Flatten(),
+        layers.Dense(64, activation='relu'),
+        layers.Dropout(0.5),
+        layers.Dense(num_classes, activation='softmax')
+    ])
+Keeping the architecture neat and focused.
 
-3. **Better Data Handling**
-   - Standardized all images to 128x128 pixels
-   - Improved how quantum numbers are extracted from filenames
-   - Made sure all images are processed consistently
+2. **Improved Training Data**
+   Initially the model was only trained on quantum states from n = 1 to n = 5, which only consisted of 35 images. The new model was trained on n = 1 to n = 7, increasing the training data to 89 images, however this is still a comparably small data set.
 
 ## Results
 The model shows significant improvement from my previous attempt. Where before it struggled to classify orbitals within its own training set, this version successfully identifies principle quantum numbers of test images, demonstrating it has learned meaningful features from the training data.
 
 ## What's Next?
-- Could try adding back l and m classification once n is solid
-- Maybe explore different model architectures
-- Definitely want to expand the training dataset
 
-## Dependencies
-- TensorFlow 2.x
-- NumPy
-- PIL (Python Imaging Library)
-- Matplotlib
-
-## Notes
-All code is available in `improved-electron-orbital-classification.ipynb`. The training data consists of electron orbital visualizations, with the quantum numbers encoded in the filenames.
+Moving forward, I would like to explore baking the quantum mechanical equations into the architecture of the model to created a Physics-informed ML model that will be able to accurately classify not just the principle quantum number n, but the angular and magnetic quantum states l and m too. 
