@@ -35,7 +35,7 @@ model = models.Sequential([
     layers.Dropout(0.5),
     layers.Dense(num_classes, activation='softmax')
 ])
-
+```
 Keeping the architecture neat and focused.
 
 2. **Improved Training Data**
