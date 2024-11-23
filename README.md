@@ -15,26 +15,27 @@ I decided to make the following changes to improve its accuracy:
 1. **Cleaned Up the Model**
 
 The original project used a far more complicated CNN architecture than was necessary. The new architecture took the form:
-     ```python
-   model = models.Sequential([
-        # First Convolutional Block
-        layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
-        layers.MaxPooling2D((2, 2)),
-        
-        # Second Convolutional Block
-        layers.Conv2D(64, (3, 3), activation='relu'),
-        layers.MaxPooling2D((2, 2)),
-        
-        # Third Convolutional Block
-        layers.Conv2D(64, (3, 3), activation='relu'),
-        layers.MaxPooling2D((2, 2)),
-        
-        # Flatten and Dense Layers
-        layers.Flatten(),
-        layers.Dense(64, activation='relu'),
-        layers.Dropout(0.5),
-        layers.Dense(num_classes, activation='softmax')
-    ])
+```python
+model = models.Sequential([
+    # First Convolutional Block
+    layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
+    layers.MaxPooling2D((2, 2)),
+    
+    # Second Convolutional Block
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D((2, 2)),
+    
+    # Third Convolutional Block
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D((2, 2)),
+    
+    # Flatten and Dense Layers
+    layers.Flatten(),
+    layers.Dense(64, activation='relu'),
+    layers.Dropout(0.5),
+    layers.Dense(num_classes, activation='softmax')
+])
+
 Keeping the architecture neat and focused.
 
 2. **Improved Training Data**
