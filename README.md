@@ -15,7 +15,7 @@ I decided to make the following changes to improve its accuracy:
 1. **Cleaned Up the Model**
 
 The original project used a far more complicated CNN architecture than was necessary. The new architecture took the form:
-     ```<python>
+     ```python
    model = models.Sequential([
         # First Convolutional Block
         layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape),
